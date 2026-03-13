@@ -1,26 +1,55 @@
-const ADMIN_EMAIL = "adminambulance@gmail.com";
-const ADMIN_PASSWORD = "admin@123";
-const AUTH_KEY = "ambulance_admin_auth";
+import api from "./api";
 
-export const loginAdmin = (email: string, password: string): boolean => {
-  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-    localStorage.setItem(AUTH_KEY, JSON.stringify({ email, loggedIn: true, timestamp: Date.now() }));
-    return true;
-  }
-  return false;
-};
+export interface AdminUser {
+  id: number;
+  name: string;
+  email: string;
+}
 
-export const logoutAdmin = () => {
-  localStorage.removeItem(AUTH_KEY);
-};
+/**
+ * Login — appelle POST /api/auth/login
+ * Stocke le token Bearer dans localStorage
+ */
+export async function loginAdmin(
+  email: string,
+  password: string
+): Promise<AdminUser> {
+  const { data } = await api.post("/auth/login", { email, password });
+  localStorage.setItem("admin_token", data.token);
+  localStorage.setItem("admin_user", JSON.stringify(data.user));
+  return data.user;
+}
 
-export const isAdminLoggedIn = (): boolean => {
-  const auth = localStorage.getItem(AUTH_KEY);
-  if (!auth) return false;
+/**
+ * Logout — appelle POST /api/auth/logout puis nettoie le storage
+ */
+export async function logoutAdmin(): Promise<void> {
   try {
-    const parsed = JSON.parse(auth);
-    return parsed.loggedIn === true;
-  } catch {
-    return false;
+    await api.post("/auth/logout");
+  } catch (_) {
+    // ignore si déjà expiré
+  } finally {
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("admin_user");
   }
-};
+}
+
+/**
+ * Vérifie si un token est présent en localStorage
+ */
+export function isAdminLoggedIn(): boolean {
+  return !!localStorage.getItem("admin_token");
+}
+
+/**
+ * Retourne l'utilisateur stocké (sans appel API)
+ */
+export function getAdminUser(): AdminUser | null {
+  const raw = localStorage.getItem("admin_user");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as AdminUser;
+  } catch {
+    return null;
+  }
+}
