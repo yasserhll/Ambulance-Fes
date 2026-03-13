@@ -1,0 +1,64 @@
+import { Phone, MessageCircle, MapPin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+import logo from "@/assets/logo.png";
+
+const Footer = () => {
+  return (
+    <footer id="contact" className="gradient-navy text-secondary-foreground">
+      <div className="container mx-auto section-padding !py-12">
+        <div className="grid md:grid-cols-3 gap-12">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logo} alt="Logo" className="h-8 w-8" />
+              <span className="font-display font-bold text-lg">Ambulance Fès</span>
+            </div>
+            <p className="font-body text-sm text-secondary-foreground/70 mb-4">
+              Service d'ambulance professionnel à Fès, Maroc. Disponible 24h/24 pour toutes vos urgences médicales.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-display font-semibold mb-4">Contact d'Urgence</h4>
+            <div className="space-y-3">
+              <a href="tel:+212776892710" className="flex items-center gap-3 text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+                <Phone className="h-4 w-4 text-primary" /> +212 776-892710
+              </a>
+              <a href="https://wa.me/212776892710" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-secondary-foreground/80 hover:text-accent transition-colors">
+                <MessageCircle className="h-4 w-4 text-accent" /> WhatsApp
+              </a>
+              <div className="flex items-center gap-3 text-sm text-secondary-foreground/80">
+                <MapPin className="h-4 w-4 text-primary" /> Fès, Maroc
+              </div>
+              <div className="flex items-center gap-3 text-sm text-secondary-foreground/80">
+                <Mail className="h-4 w-4 text-primary" /> contact@ambulancefes.ma
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-display font-semibold mb-4">Liens Rapides</h4>
+            <div className="space-y-2 font-body text-sm text-secondary-foreground/70">
+              <a href="#services" className="block hover:text-primary transition-colors">Services</a>
+              <a href="#coverage" className="block hover:text-primary transition-colors">Zone de couverture</a>
+              <a href="#collaborators" className="block hover:text-primary transition-colors">Collaborateurs</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-secondary-foreground/10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="font-body text-xs text-secondary-foreground/50">
+            © {new Date().getFullYear()} Ambulance Fès. Tous droits réservés.
+          </p>
+          <Link
+            to="/admin/login"
+            className="font-body text-xs text-secondary-foreground/30 hover:text-secondary-foreground/60 transition-colors"
+          >
+            Admin
+          </Link>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
