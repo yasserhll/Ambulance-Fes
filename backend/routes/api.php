@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AmbulanceController;
+use App\Http\Controllers\ChauffeurController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ProblemeController;
 use App\Http\Controllers\HeureTravailController;
@@ -31,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Ambulances
     Route::apiResource('ambulances', AmbulanceController::class);
+
+    // Chauffeurs
+    Route::apiResource('chauffeurs', ChauffeurController::class);
 
     // Maintenance
     Route::apiResource('maintenance', MaintenanceController::class);

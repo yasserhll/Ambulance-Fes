@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             AmbulanceSeeder::class,
+            ChauffeurSeeder::class,
             MaintenanceSeeder::class,
             ProblemeSeeder::class,
             HeuresTravailSeeder::class,

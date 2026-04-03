@@ -44,14 +44,14 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row gap-4"
           >
             <a
-              href="tel:+212776892710"
+              href="tel:+212661706933"
               className="btn-emergency flex items-center justify-center gap-3 text-xl pulse-emergency"
             >
               <Phone className="h-6 w-6" />
               Appel Direct
             </a>
             <a
-              href="https://wa.me/212776892710"
+              href="https://wa.me/212661706933"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-whatsapp flex items-center justify-center gap-3 text-xl"

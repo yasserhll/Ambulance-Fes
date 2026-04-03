@@ -1,5 +1,4 @@
 import { Phone, MessageCircle, MapPin, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
@@ -20,10 +19,10 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold mb-4">Contact d'Urgence</h4>
             <div className="space-y-3">
-              <a href="tel:+212776892710" className="flex items-center gap-3 text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
-                <Phone className="h-4 w-4 text-primary" /> +212 776-892710
+              <a href="tel:+212661706933" className="flex items-center gap-3 text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+                <Phone className="h-4 w-4 text-primary" /> +212661706933
               </a>
-              <a href="https://wa.me/212776892710" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-secondary-foreground/80 hover:text-accent transition-colors">
+              <a href="https://wa.me/212661706933" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-secondary-foreground/80 hover:text-accent transition-colors">
                 <MessageCircle className="h-4 w-4 text-accent" /> WhatsApp
               </a>
               <div className="flex items-center gap-3 text-sm text-secondary-foreground/80">
@@ -45,16 +44,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-secondary-foreground/10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-secondary-foreground/10 mt-10 pt-6 flex items-center justify-center">
           <p className="font-body text-xs text-secondary-foreground/50">
             © {new Date().getFullYear()} Ambulance Fès. Tous droits réservés.
           </p>
-          <Link
-            to="/admin/login"
-            className="font-body text-xs text-secondary-foreground/30 hover:text-secondary-foreground/60 transition-colors"
-          >
-            Admin
-          </Link>
         </div>
       </div>
     </footer>

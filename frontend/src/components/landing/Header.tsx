@@ -28,14 +28,14 @@ const Header = () => {
 
         <div className="flex items-center gap-2">
           <a
-            href="tel:+212776892710"
+            href="tel:+212661706933"
             className="btn-emergency flex items-center gap-2 !text-sm !px-4 !py-2 pulse-emergency"
           >
             <Phone className="h-4 w-4" />
             <span className="hidden sm:inline">Urgence</span>
           </a>
           <a
-            href="https://wa.me/212776892710"
+            href="https://wa.me/212661706933"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-whatsapp flex items-center gap-2 !text-sm !px-4 !py-2"
