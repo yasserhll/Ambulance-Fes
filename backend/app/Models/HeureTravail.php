@@ -13,6 +13,7 @@ class HeureTravail extends Model
 
     protected $fillable = [
         'ambulance_id',
+        'chauffeur_id',
         'conducteur',
         'date',
         'heure_debut',
@@ -32,5 +33,21 @@ class HeureTravail extends Model
     public function ambulance()
     {
         return $this->belongsTo(Ambulance::class);
+    }
+
+    public function chauffeur()
+    {
+        return $this->belongsTo(Chauffeur::class);
+    }
+
+    // Alias for frontend compatibility
+    public function getDureeHeuresAttribute(): float
+    {
+        return $this->heures_total ?? 0;
+    }
+
+    public function getTypeAttribute(): string
+    {
+        return $this->type_service ?? 'service';
     }
 }

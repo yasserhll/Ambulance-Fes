@@ -1,28 +1,54 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, Navigate } from "react-router-dom";
 import { isAdminLoggedIn } from "@/lib/auth";
 import AdminSidebar from "./AdminSidebar";
+import api from "@/lib/api";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
-  const [checked, setChecked] = useState(false);
+  // ── STEP 1: synchronous check ── if no token at all, redirect instantly
+  const hasToken = isAdminLoggedIn();
+
+  const [verified, setVerified] = useState(false);
+  const [checking, setChecking] = useState(hasToken); // only check if token exists
 
   useEffect(() => {
-    if (!isAdminLoggedIn()) {
-      navigate("/admin/login");
-    } else {
-      setChecked(true);
-    }
-  }, [navigate]);
+    if (!hasToken) return; // already handled by early return below
 
-  if (!checked) return null;
+    // ── STEP 2: verify token is still valid server-side
+    api.get("/auth/me")
+      .then(() => {
+        setVerified(true);
+        setChecking(false);
+      })
+      .catch(() => {
+        localStorage.removeItem("admin_token");
+        localStorage.removeItem("admin_user");
+        navigate("/admin/login", { replace: true });
+      });
+  }, []); // run once on mount
+
+  // No token → redirect synchronously, no flash, no spinner
+  if (!hasToken) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  // Token exists but API check not done yet → spinner
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-muted dark:bg-gray-950">
+        <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // Token verified ✓
+  if (!verified) return null;
 
   return (
-    // flex-row : sidebar fixe à gauche + contenu à droite
-    <div className="flex min-h-screen bg-muted">
+    <div className="flex min-h-screen bg-muted dark:bg-gray-950">
       <AdminSidebar />
-      {/* Le main prend tout l'espace restant et scroll indépendamment */}
-      <main className="flex-1 min-w-0 overflow-y-auto h-screen p-8">
+      <main className="flex-1 min-w-0 overflow-y-auto h-screen p-6 lg:p-8">
         <Outlet />
       </main>
     </div>

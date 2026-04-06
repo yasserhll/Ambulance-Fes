@@ -13,6 +13,7 @@ class Probleme extends Model
 
     protected $fillable = [
         'ambulance_id',
+        'chauffeur_id',
         'titre',
         'description',
         'priorite',
@@ -24,12 +25,17 @@ class Probleme extends Model
     ];
 
     protected $casts = [
-        'date_rapport'    => 'date',
-        'date_resolution' => 'date',
+        'date_rapport'    => 'date:Y-m-d',
+        'date_resolution' => 'date:Y-m-d',
     ];
 
     public function ambulance()
     {
         return $this->belongsTo(Ambulance::class);
+    }
+
+    public function chauffeur()
+    {
+        return $this->belongsTo(Chauffeur::class);
     }
 }
